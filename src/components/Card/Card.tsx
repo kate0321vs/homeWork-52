@@ -1,31 +1,48 @@
+import { Component } from 'react';
+
 interface Props {
   rank: string;
   suit: string;
-  suitSymbol: {diams: string; hearts: string; clubs: string; spades: string};
-  rankLetter: {j: string; q: string; k: string; a: string};
 }
 
-const suitSymbol = {
+interface suitSymbolInt {
+  diams: string,
+  hearts: string,
+  clubs: string,
+  spades: string,
+}
+
+interface rankLetterInt {
+  j: string,
+  q: string,
+  k: string,
+  a: string,
+};
+
+const suitSymbol: suitSymbolInt = {
   diams: '♦',
   hearts: '♥',
   clubs: '♣',
   spades: '♠',
 };
 
-const rankLetter = {
+const rankLetter: rankLetterInt = {
   j: 'J',
   q: 'Q',
   k: 'K',
   a: 'A',
 };
 
-const Card: React.FC<Props> = ({rank, suit}) => {
-  return (
-    <span className={`card rank-${rank} ${suit}`}>
-      <span className="rank">{rankLetter[rank]}</span>
-      <span className={`${suit}`}>{suitSymbol[suit]}</span>
-    </span>
-  );
-};
+class Card extends Component<Props> {
+  render() {
+    const {rank, suit} = this.props;
+    return (
+      <span className={`card rank-${rank} ${suit}`}>
+       <span className="rank">{rankLetter[rank] || rank}</span>
+       <span className="suit">{suitSymbol[suit]}</span>
+     </span>
+    )
+  }
+}
 
 export default Card;

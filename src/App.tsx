@@ -1,35 +1,64 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import Card from './components/Card/Card.tsx';
+import CardDeck from './lib/CardDeck.ts'
+import { useState } from 'react';
 
-function App() {
-  const [count, setCount] = useState(0)
+interface ICard {
+  rank: string;
+  suit: string;
+}
+
+let deck = new CardDeck();
+
+const App = () => {
+  const [hand, setHand] = useState<ICard[]>([]);
+
+  // console.log(deck.deck.length);
+
+
+  const getAnyCards = (card: number) => {
+    const anyCards = deck.getCards(card)
+    setHand(anyCards)
+  }
+
+  const getNewDeck = () => {
+    deck = new CardDeck();
+    setHand([]);
+  }
+  console.log(hand)
+  console.log(deck.deck.length)
 
   return (
     <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
-}
+      <div className="mainContainer">
+        <p className="someText"><strong>Card Count:</strong> {deck.deck.length}</p>
+        {deck.deck.length === 0 ? (
+          <div className="btnWrapper">
+            <button onClick={() => getAnyCards(5)}>
+              Get Cards
+            </button>
+            <button onClick={() => getNewDeck()}>
+              New Deck
+            </button>
+          </div>
+        ) : (
+          <>
 
-export default App
+            <div className="playingCards faceImages">
+            {hand.map((card) => (
+              <Card rank={card.rank} suit={card.suit}/>
+            ))}
+          </div>
+            <div className="btnWrapper">
+          <button className="cardsBtn" onClick={() => getAnyCards(5)}>
+            Get Cards
+          </button>
+            </div>
+          </>
+          )}
+      </div>
+      </>
+      );
+      };
+
+
+      export default App;
