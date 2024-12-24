@@ -17,7 +17,7 @@ interface rankLetterInt {
   q: string,
   k: string,
   a: string,
-};
+}
 
 const suitSymbol: suitSymbolInt = {
   diams: '♦',

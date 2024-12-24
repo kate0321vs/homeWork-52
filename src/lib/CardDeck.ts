@@ -4,7 +4,7 @@ class CardDeck {
   public deck: Card[];
 
   constructor() {
-    this.deck = []
+    this.deck = [];
     const suits = ['diams', 'hearts', 'clubs', 'spades'];
     const ranks = ['2', '3', '4', '5', '6', '7', '8', '9', '10', 'j', 'q', 'k', 'a'];
 
@@ -27,10 +27,8 @@ class CardDeck {
     for (let i = 0; i < howMany; i++) {
       cards.push(this.getCard());
     }
-    return cards
+    return cards;
   }
 }
-
-
 
 export default CardDeck;
